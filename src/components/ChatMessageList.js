@@ -14,7 +14,7 @@ const ChatMessageList = () => {
                 <div id="blocked"></div>
                 <div id="wrapper-message-list">
                 {
-                    selectedContact.messageList.map((message, index) => {
+                    contacts.find(contact => contact.id === selectedContact.id).messageList.map((message, index) => {
                         if(message.owner === "You") {
                             return (
                                 <div id="message-row" className="you-message" key={index}>
@@ -25,8 +25,11 @@ const ChatMessageList = () => {
                         }else {
                             return (
                                 <div id="message-row" className="response-message" key={index}>
-                                    <div id="message-text">{message.message}</div>
-                                    <div id="message-date">{new Date(message.date).toLocaleString()}</div>
+                                    <div id="message-content">
+                                        <img src={selectedContact.image} alt={selectedContact.name} />
+                                        <div id="message-text">{message.message}</div>
+                                        <div id="message-date">{new Date(message.date).toLocaleString()}</div>
+                                    </div>
                                 </div>
                             )
                         }

@@ -1,3 +1,7 @@
+import React, {useState} from 'react';
+
+import {PersistGate} from 'redux-persist/integration/react'
+
 import './App.scss';
 
 import SearchContainer from './components/SearchContainer';
@@ -6,28 +10,34 @@ import ChatTitle from './components/ChatTitle';
 import ChatMessageList from './components/ChatMessageList';
 import ChatForm from './components/ChatForm';
 
+import {persistor} from './store';
 
-import store from './store';
+import {store} from './store';
 import { Provider } from 'react-redux';
 
 function App() {
+
+  const [clearFilter, setClearFilter] = useState(false);
+
   return (
     <Provider store={store} >
-    <div className="App">
-      <div id="chat-container">
+      <PersistGate loading={<ChatMessageList />} persistor={persistor}>
+        <div className="App">
+          <div id="chat-container">
 
-        <SearchContainer />
+            <SearchContainer clearFilter={clearFilter} setClearFilter={setClearFilter} />
 
-        <ChatTitle />
+            <ChatTitle />
 
-        <ContactsList />
+            <ContactsList setClearFilter={setClearFilter}/>
 
-        <ChatMessageList />
+            <ChatMessageList />
 
-        <ChatForm />
+            <ChatForm />
 
-      </div>
-    </div>
+          </div>
+        </div>
+      </PersistGate>
     </Provider>
   );
 }

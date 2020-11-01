@@ -200,6 +200,17 @@ $black_color: #000000;
 .response-message {
   justify-content: start;
   margin-left: 1%;
+  img {
+    width: 50px;
+    height: 50px;
+    border-radius: 25px;
+    grid-row: span 2;
+  }
+  #message-content {
+    display: grid;
+    grid-template-columns: 45px 1fr;
+    grid-column-gap: 10px;
+  }
   #message-text {
     background: #232c43;
     color: #ffffff;

@@ -2,3 +2,5 @@ export const ADD_CONTACT = "ADD_CONTACT";
 export const GET_CONTACT = "GET_CONTACT";
 export const ADD_MESSAGE = "ADD_MESSAGE";
 export const FILTER_CONTACTS = "FILTER_CONTACTS";
+export const SORT_MESSAGE = "SORT_MESSAGE";
+export const CLEAR_FILTER = "CLEAR_FILTER";

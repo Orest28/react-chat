@@ -2,7 +2,8 @@ import {
     GET_CONTACT,
     ADD_CONTACT,
     ADD_MESSAGE,
-    FILTER_CONTACTS
+    FILTER_CONTACTS,
+    CLEAR_FILTER
 } from './types'
 
 import axios from 'axios';
@@ -26,13 +27,11 @@ export const addMessage = (messageObject, oldContactsList) => (dispatch) => {
     let updatedContactsList = [...oldContactsList];
 
     updatedContactsList.find(contact => contact.id === messageObject.id).messageList.push(messageObject);
+    updatedContactsList.find(contact => contact.id === messageObject.id).lastMessageDate = messageObject.date;
 
     delete messageObject.id;
 
-    dispatch({
-        type: ADD_MESSAGE,
-        payload: updatedContactsList
-    });
+    dispatch(sortContactsByDateAndAddMessage(updatedContactsList));
 }
 
 export const getResponse = (ownerObject, oldContactsList) => (dispatch) => {
@@ -49,13 +48,9 @@ export const getResponse = (ownerObject, oldContactsList) => (dispatch) => {
         .get("https://api.chucknorris.io/jokes/random")
         .then((res) => {
             messageObject.message = res.data.value;
-            console.log(messageObject)
-            console.log(updatedContactsList)
             updatedContactsList.find(contact => contact.id === ownerObject.id).messageList.push(messageObject);
-            dispatch({
-                type: ADD_MESSAGE,
-                payload: updatedContactsList
-            })
+            updatedContactsList.find(contact => contact.id === ownerObject.id).lastMessageDate = messageObject.date;
+            dispatch(sortContactsByDateAndAddMessage(updatedContactsList));
         }).catch(err => {
             console.log(err)
         });
@@ -63,13 +58,37 @@ export const getResponse = (ownerObject, oldContactsList) => (dispatch) => {
 
 export const filterContacts = (filter, contacts) => (dispatch) => {
     
-    const filteredContacts = contacts.filter(contact => contact.name.toLowerCase().startsWith(filter.toLowerCase()));
-
-
+    const filteredContacts = (filter !== "") ? contacts.filter(contact => contact.name.toLowerCase().startsWith(filter.toLowerCase())) : [];
 
     dispatch({
         type: FILTER_CONTACTS,
-        filteredContacts: filteredContacts,
-        filteredName : filter
+        payload: {
+            filteredContacts: filteredContacts,
+            filteredName : filter
+        }
+    })
+}
+
+export const sortContactsByDateAndAddMessage = (contacts) => (dispatch) => {
+
+    let sortedContacts = [...contacts];
+
+    sortedContacts.sort((a,b) => {
+        if(new Date(a.lastMessageDate).getTime() > new Date(b.lastMessageDate).getTime()) return -1;
+        if(new Date(a.lastMessageDate).getTime() < new Date(b.lastMessageDate).getTime()) return 1;
+        return 0;
+    })
+
+    dispatch({
+        type: ADD_MESSAGE,
+        payload: {
+            updatedContactsList : sortedContacts
+        }
+    });
+}
+
+export const clearFilter = () => (dispatch) => {
+    dispatch({
+        type: CLEAR_FILTER,
     })
 }
