@@ -1,12 +1,9 @@
 import React, { useEffect, useRef } from 'react'
 
-import '../App.scss';
+//import '../App.scss';
 
 import { filterContacts } from '../action/contactAction';
 import { useDispatch, useSelector } from 'react-redux';
-
-//make name in h2 tag
-
 
 const SearchContainer = ({clearFilter, setClearFilter}) => {
 
@@ -28,14 +25,14 @@ const SearchContainer = ({clearFilter, setClearFilter}) => {
     },[clearFilter])
 
     return (
-        <div id="search-container" className="w3-container">
-            <div id="account">
+        <div className="search-container w3-container">
+            <div className="account">
                 <h2>
                     <i className="fa fa-user-circle w3-xxlarge"></i>
                 </h2>
                 <h2>Orest Hlodan</h2>
             </div>
-            <div id="find-contact">
+            <div className="find-contact">
                 <form>
                     <input
                         ref={inputEl}

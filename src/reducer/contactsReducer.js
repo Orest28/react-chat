@@ -88,7 +88,7 @@ const initialState = {
         },
         {
             id : 2,
-            image : 'images/contact_3.jpeg',
+            image : '../images/contact_3.jpeg',
             name : "Peter",
             lastMessageDate: new Date(2020, 9, 17, 3, 28, 14),
             lastMessageText: "I`m relaxing",
@@ -117,7 +117,7 @@ const initialState = {
         },
         {
             id: 3,
-            image : 'images/contact_4.jpeg',
+            image : '../images/contact_4.jpeg',
             name : "Brown",
             lastMessageDate: new Date(2020, 9, 17, 3, 28, 14),
             lastMessageText: "I`m relaxing",
@@ -146,7 +146,7 @@ const initialState = {
         },
         {
             id: 4,
-            image : 'images/contact_5.jpeg',
+            image : '../images/contact_5.jpeg',
             name : "Lusy",
             lastMessageDate: new Date(2020, 9, 17, 3, 28, 14),
             lastMessageText: "I`m relaxing",
@@ -175,7 +175,7 @@ const initialState = {
         },
         {
             id : 5,
-            image : 'images/contact_5.jpeg',
+            image : '../images/contact_5.jpeg',
             name : "OLEG",
             lastMessageDate: new Date(2020, 9, 17, 3, 28, 14),
             lastMessageText: "I`m relaxing",

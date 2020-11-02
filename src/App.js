@@ -23,7 +23,7 @@ function App() {
     <Provider store={store} >
       <PersistGate loading={<ChatMessageList />} persistor={persistor}>
         <div className="App">
-          <div id="chat-container">
+          <div className="chat-container">
 
             <SearchContainer clearFilter={clearFilter} setClearFilter={setClearFilter} />
 

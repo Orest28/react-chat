@@ -11,15 +11,16 @@ export const getLastMessage = (contact) => {
     }
 }
 
-export const createContact = (id, img, name, lastMessageDate, messageList, dispatch, setClearFilter, contacts) => {
+export const createContact = (id, name, lastMessageDate, messageList, dispatch, setClearFilter, contacts) => {
 
     contacts.push({
         id: id,
-        image: img,
+        image: `contact_${id}`,
         name: name,
         lastMessageDate: lastMessageDate,
         messageList: messageList
     })
+
 
     setClearFilter(true);
 

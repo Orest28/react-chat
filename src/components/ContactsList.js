@@ -1,15 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
 
-import { addContact, getContact, clearFilter } from '../action/contactAction';
+import { getContact } from '../action/contactAction';
 
 import {getLastMessage, createContact, getTheBiggestId} from '../utils/ContactListHelper';
 
 import personIcon from '../add-person-icon.png';
+import Modal from './Modal';
 
+import { getImageFromLocalStorage } from '../utils/LocalStorageHelper'
 
 const ContactList = ({setClearFilter}) => {
+
+    const [modal, setModal] = useState(false);
+    const [file, setFile] = useState(null);
 
     const contacts = useSelector(state => state.contactReducer.contacts);
 
@@ -19,65 +24,36 @@ const ContactList = ({setClearFilter}) => {
     const dispatch = useDispatch();
     
     let displayedContactsList = (filteredContacts.length !== 0 || filteredName !== "") ? filteredContacts : contacts;
+    
 
-    /*
-    const getLastMessage = (contact) => {
-        if(!contact.messageList.length)
-            return "This chat hasn`t messages yet!"
-        if(contact.messageList[contact.messageList.length - 1].owner === "You") {
-            return "You: " + contact.messageList[contact.messageList.length - 1].message;
-        } else {
-            return contact.messageList[contact.messageList.length - 1].message;
-        }
-    }
-    */
-
-    /*
-    const createContact = (id, img, name, lastMessageDate, messageList, dispatch) => {
-
-        contacts.push({
-            id: id,
-            image: img,
-            name: name,
-            lastMessageDate: lastMessageDate,
-            messageList: messageList
-        })
-
-        setClearFilter(true);
-
-        dispatch(addContact(contacts));
-        dispatch(clearFilter())
-    }
-    */
-
-    /*
-    const getTheBiggestId = () => {
+    const handleChangeFile = (e) => {
         
-        let id = 0;
+        setFile(URL.createObjectURL(e.target.files[0]));
 
-        for(let i = 0; i < contacts.length; i++) {
-            if(contacts[i].id > id) {
-                id = contacts[i].id;
-            }
-        }
+        const reader = new FileReader();
 
-        return id + 1;
+        reader.onload = () =>  {
+            localStorage.setItem(`contact_${getTheBiggestId(contacts)}`, reader.result);
+        };
+
+        reader.readAsDataURL(e.target.files[0]);
     }
-    */
 
     const generateNewChatForm = () => {
         if(filteredName !== "") {
             return (
-                <div id="conversation" 
-                    onClick={() => createContact(getTheBiggestId(contacts), "../images/add-person-icon.png", filteredName, null, [], dispatch, setClearFilter, contacts)}>
+                <div className="conversation" 
+                    onClick={() => 
+                        setModal(true)}
+                >
                     <img src={personIcon} alt={"new person"} />
-                    <div id="title-text">
+                    <div className="title-text">
                         {filteredName}
                     </div>
-                    <div id="last-message-date">
+                    <div className="last-message-date">
                         
                     </div>
-                    <div id="conversation-message">
+                    <div className="conversation-message">
                         To start chat with {filteredName} , please enter here!
                     </div>
                 </div>
@@ -86,19 +62,19 @@ const ContactList = ({setClearFilter}) => {
     }
 
     return (
-        <div id="contacts-list">
+        <div className="contacts-list">
             {
                 displayedContactsList.map((contact, index) => {
                     return (
-                        <div id="conversation" key={index} onClick={() => dispatch(getContact(contact))}>
-                            <img src={contact.image} alt={contact.name} />
-                            <div id="title-text">
+                        <div className="conversation" key={index} onClick={() => dispatch(getContact(contact))}>
+                            <img src={getImageFromLocalStorage(contact.image)} alt={contact.name} />
+                            <div className="title-text">
                                 {contact.name}
                             </div>
-                            <div id="last-message-date">
+                            <div className="last-message-date">
                                 {new Date(contact.lastMessageDate).toLocaleString()} 
                             </div>
-                            <div id="conversation-message">
+                            <div className="conversation-message">
                                 {
                                     getLastMessage(contact)
                                 }
@@ -110,6 +86,38 @@ const ContactList = ({setClearFilter}) => {
             {
                 generateNewChatForm()
             }
+            <Modal show={modal}>
+                <div className="modal" id="modal">
+                    <div className="modal-content">
+                        <div className="modal-title">
+                            <h3>Select profile photo</h3>
+                        </div>
+                        <div className="break-block-modal"></div>
+                        <div className="select-file">
+                            <input 
+                                type="file"
+                                onChange={handleChangeFile}
+                            />
+                        </div>
+                        <div className="break-block-modal"></div>
+                        <div className="preview-photo">
+                            {
+                                file !== null ? <img src={file} alt="preview" /> : <h4>Here will be your selected profile photo</h4>
+                            }
+                        </div>
+                        <div className="break-block-modal"></div>
+                        <div className="accept-photo">
+                            <button 
+                            onClick={() => {
+                                setModal(false);
+                                createContact(getTheBiggestId(contacts), filteredName, null, [], dispatch, setClearFilter, contacts);
+                            }
+                            }
+                            >Accept</button>
+                        </div>
+                    </div>
+                </div>
+            </Modal>
         </div>
     )
 }

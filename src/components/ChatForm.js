@@ -31,7 +31,7 @@ const ChatForm = () => {
     }
 
     return (
-        <div id="chat-form">
+        <div className="chat-form">
             <form onSubmit={sendMessage}>
             <input 
                 type="text" 
