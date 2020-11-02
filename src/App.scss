@@ -266,10 +266,6 @@ $dark_red_color: #8B0000;
   height: 10px;
 }
 
-.select-file {
-  
-}
-
 .preview-photo {
   h4 {
     color: $dark_red_color;
@@ -324,22 +320,26 @@ $dark_red_color: #8B0000;
     grid-template-rows: 100px 100px 1fr 100px;
     grid-template-columns: 30% 1fr;
   }
+
+  .toggle-display {
+    display: none;
   }
+}
   
   /* 370px - 400px */
   
   @media(min-width: 370px) and (max-width: 400px) {
   
-    .chat-container {
-      display: grid;
-      grid-template-areas:
-        'chat-title chat-title'
-        'chat-message-list chat-message-list'
-        'chat-form chat-form';
-      height: 100vh;
-      grid-template-rows: 100px 1fr 100px;
-      grid-template-columns: 500px 1fr;
-    }
+  .chat-container {
+    display: grid;
+    grid-template-areas:
+      'chat-title chat-title'
+      'chat-message-list chat-message-list'
+      'chat-form chat-form';
+    height: 100vh;
+    grid-template-rows: 100px 1fr 100px;
+    grid-template-columns: 500px 1fr;
+  }
   
   .search-container {
     display: none;
@@ -417,4 +417,80 @@ $dark_red_color: #8B0000;
   .wrapper-message-list {
     padding-top: 3%;
   }
+
+  .chat-title {
+    display: grid;
+    grid-template-columns: 120px 200px 1fr;
+    img {
+      grid-row: span 2;
+      height: 80px;
+      border-radius: 50%;
+      margin-top: 6%;
+      margin-left: 10%;
+    }
+    h2 {
+      margin-top: 10%;
+    }
+    .toggle-display {
+      margin-top: 15%;
+    }
   }
+
+  .toggle {
+      width: 35px;
+      height: 5px;
+      background-color: black;
+      margin: 6px 0;
+  }
+
+  .sidenav {
+    height: 100%; /* 100% Full-height */
+    width: 280px; /* 0 width - change this with JavaScript */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Stay on top */
+    top: 0; /* Stay at the top */
+    left: 0;
+    background-color: #111; /* Black*/
+    color: $white_color;
+    transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+    overflow-y: scroll;
+  }
+
+  .mobile-conversation {
+    display: grid;
+
+    grid: 
+      'conversation-image mobile-title-text mobile-last-message-date'
+      'conversation-image mobile-conversation-message mobile-conversation-message';
+
+    border-bottom: 1px solid $white_color;
+    border-top: 1px solid $white_color;
+    grid-template-columns: 100px 100px 60px;
+    grid-template-rows: 80px;
+    .conversation-image {
+      grid-area: conversation-image;
+    }
+    .mobile-title-text {
+      grid-area: mobile-title-text;
+      padding-top: 20%;
+      font-weight: bold;
+      color:$white_color;
+      white-space: nowrap;
+      overflow-x: hidden;
+      text-overflow: ellipsis;
+    }
+    .mobile-last-message-date {
+      grid-area: mobile-last-message-date;
+      color: $white_color;
+      padding-top: 20%;
+      font-size: 0.8em;
+    }
+    .mobile-conversation-message {
+      grid-area: mobile-conversation-message;
+      color: $white_color;
+      white-space: nowrap;
+      overflow-x: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+}
