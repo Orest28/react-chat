@@ -19,9 +19,6 @@ function App() {
 
   const [clearFilter, setClearFilter] = useState(false);
 
-  console.log("APP");
-  console.log(setClearFilter);
-
   return (
     <Provider store={store} >
       <PersistGate loading={<ChatMessageList />} persistor={persistor}>

@@ -8,8 +8,6 @@ const ChatTitle = ({clearFilter, setClearFilter}) => {
 
     const [openContactsList, setOpenContactsList] = useState(false);
 
-    console.log(openContactsList)
-
     const selectedContact = useSelector(state => state.contactReducer.selectedContact);
 
     const handleChangeOpen = () => {

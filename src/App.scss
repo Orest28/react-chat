@@ -330,7 +330,7 @@ $dark_red_color: #8B0000;
   
   /* 370px - 375px */
   
-  @media(min-width: 370px) and (max-width: 375px) {
+  @media(min-width: 300px) and (max-width: 375px) {
   
   .chat-container {
     display: grid;
@@ -412,7 +412,7 @@ $dark_red_color: #8B0000;
     display: grid;
     justify-items: end;
     align-content: end;
-    margin-right: 26%;
+    margin-right: 35vw;
     .message-text {
       background: #0048AA;
       color: #eeeeee;

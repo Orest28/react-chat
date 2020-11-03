@@ -71,7 +71,7 @@ const ContactList = ({setClearFilter, setSideBarDisplay}) => {
                             key={index} 
                             onClick={() => { 
                                 dispatch(getContact(contact))
-                                setSideBarDisplay(false);
+                                if(setSideBarDisplay) setSideBarDisplay(false);
                             }}
                         >
                             <img src={getImageFromLocalStorage(contact.image)} alt={contact.name} />
