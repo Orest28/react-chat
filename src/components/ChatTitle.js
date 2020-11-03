@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { getImageFromLocalStorage } from '../utils/LocalStorageHelper'
 import { MobileSideBar } from './MobileSideBar';
 
-const ChatTitle = () => {
+const ChatTitle = ({clearFilter, setClearFilter}) => {
 
     const [openContactsList, setOpenContactsList] = useState(false);
 
@@ -33,7 +33,7 @@ const ChatTitle = () => {
                     <div className="toggle" onClick={() => handleChangeOpen()}></div>
                     <div className="toggle" onClick={() => handleChangeOpen()}></div>
                 </div>
-                <MobileSideBar display={openContactsList} setDisplay={setOpenContactsList} />
+                <MobileSideBar display={openContactsList} setDisplay={setOpenContactsList} clearFilter={clearFilter} setClearFilter={setClearFilter} />
             </div>
         )
     }

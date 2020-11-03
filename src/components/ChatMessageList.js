@@ -19,7 +19,7 @@ const ChatMessageList = () => {
                     contacts.find(contact => contact.id === selectedContact.id).messageList.map((message, index) => {
                         if(message.owner === "You") {
                             return (
-                                <div className="message-row you-message" key={index}> 
+                                <div className="message-row you-message" key={index}>
                                     <div className="message-text">{message.message}</div>
                                     <div className="message-date">{new Date(message.date).toLocaleString()}</div>
                                 </div>

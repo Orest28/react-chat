@@ -11,7 +11,7 @@ import Modal from './Modal';
 
 import { getImageFromLocalStorage } from '../utils/LocalStorageHelper'
 
-const ContactList = ({setClearFilter}) => {
+const ContactList = ({setClearFilter, setSideBarDisplay}) => {
 
     const [modal, setModal] = useState(false);
     const [file, setFile] = useState(null);
@@ -66,7 +66,14 @@ const ContactList = ({setClearFilter}) => {
             {
                 displayedContactsList.map((contact, index) => {
                     return (
-                        <div className="conversation" key={index} onClick={() => dispatch(getContact(contact))}>
+                        <div 
+                            className="conversation" 
+                            key={index} 
+                            onClick={() => { 
+                                dispatch(getContact(contact))
+                                setSideBarDisplay(false);
+                            }}
+                        >
                             <img src={getImageFromLocalStorage(contact.image)} alt={contact.name} />
                             <div className="title-text">
                                 {contact.name}
